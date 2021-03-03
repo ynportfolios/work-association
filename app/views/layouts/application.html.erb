@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sessionblog</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% flash.each do |msg_type, msg| %>
+      <% if msg.instance_of?(Array) %>
+        <% msg.each do |m| %>
+          <div class="alert alert-<%= msg_type %>" role="alert" id="alert">
+            <a href="#" class="close" data-dismiss="alert">×</a>
+            <%= m %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="alert alert-<%= msg_type %>" role="alert" id="alert">
+          <a href="#" class="close" data-dismiss="alert">×</a>
+          <%= msg %>
+        </div>
+      <% end %>
+    <% end %>
+    <% if logged_in? %>
+        <%= link_to "ブログ一覧", blogs_path %>
+        <%= link_to "マイページ", user_path(current_user.id) %>
+        <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
+      <% else %>
+        <%= link_to "新規登録", new_user_path %>
+        <%= link_to "ログイン", new_session_path %>
+      <% end %>
+    <%= yield %>
+  </body>
+</html>
