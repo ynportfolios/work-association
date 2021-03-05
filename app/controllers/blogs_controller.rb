@@ -8,6 +8,9 @@ class BlogsController < ApplicationController
 
   # GET /blogs/1 or /blogs/1.json
   def show
+    if current_user
+      @favorite = current_user.favorites.find_by(blog_id: @blog.id)
+    end
   end
 
   # GET /blogs/new
@@ -64,6 +67,6 @@ class BlogsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def blog_params
-      params.require(:blog).permit(:title, :content)
+      params.require(:blog).permit(:title, :content, :user_id)
     end
 end
