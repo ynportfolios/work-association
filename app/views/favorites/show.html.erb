@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>お気に入り一覧</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>name　</th>
+        <th>Content　</th>
+      </tr>
+    </thead>
+
+    <% if current_user %>
+      <tbody>
+        <% @blogs.each do |blog| %>
+          <tr>
+            <td><%= blog.name %></td>
+            <td><%= blog.content %></td>
+            <td><%= link_to 'Show', blog %>
+          </tr>
+        <% end %>
+      </tbody>
+    <% end %>
+  </table>
+
+  <br>
+</div>
